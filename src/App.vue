@@ -4,6 +4,8 @@ import Header from './components/Header.vue';
 import Instrumento from './components/Instrumento.vue';
 import Letras from './components/Letras.vue';
 import Numeros from './components/Numeros.vue';
+import Home from './components/Home.vue';
+import Contactos from './components/Contactos.vue';
 
 export default {
   components: {
@@ -12,6 +14,8 @@ export default {
     CardContent,
     Letras,
     Numeros,
+    Home,
+    Contactos,
   },
 
   data() {
@@ -39,6 +43,7 @@ export default {
         }
       ],
       componenteARenderizar: "Letras",
+      botonNavbar: "Home",
     }
   }
 }
@@ -47,7 +52,9 @@ export default {
 
 <template>
   <div>
+    <!-- Header -->
     <Header />
+    <!-- Instrumentos -->
     <div class="instrumentos">
       <div v-for="(instrumento, index) in instrumentos">
         <Instrumento :foto="instrumento.foto" :nombre="instrumento.nombre" :precio="instrumento.precio"
@@ -56,24 +63,52 @@ export default {
         </Instrumento>
       </div>
     </div>
+    <!-- Cards -->
     <div class="container">
       <div class="cardDisplay">
         <div class="card" v-for="(img, index) in imgCard">
-        <CardContent :foto="img.foto">
-          <h1>Title</h1>
-          <p>Descripcion</p>
-          <button style="margin-bottom: 20px; border-radius: 20px;">Comprar</button>
-        </CardContent>
-      </div>
+          <CardContent :foto="img.foto">
+            <h1>Title</h1>
+            <p>Descripcion</p>
+            <button style="margin-bottom: 20px; border-radius: 20px;">Comprar</button>
+          </CardContent>
+        </div>
       </div>
     </div>
+    <!-- Componentes Dinamicos -->
     <div>
-      <p>>-----------------------<</p>
-      <h3>Componentes Dinamicos</h3>
-      <button @click="componenteARenderizar = 'Letras' ">Letras</button>
-      <button @click="componenteARenderizar = 'Numeros' ">Numeros</button>
-      <div>
-        <component :is="componenteARenderizar"></component>
+      <p>>-----------------------<< </p>
+          <h3>Componentes Dinamicos</h3>
+          <button @click="componenteARenderizar = 'Letras'">Letras</button>
+          <button @click="componenteARenderizar = 'Numeros'">Numeros</button>
+          <div>
+            <component :is="componenteARenderizar"></component>
+          </div>
+    </div>
+    <br>
+    <!-- Navbar -->
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item fs-3">
+                <a class="nav-link" @click="botonNavbar = 'Home'">Home</a>
+              </li>
+              <li class="nav-item fs-3">
+                <a class="nav-link" @click="botonNavbar = 'Contactos'">Contactos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br>
+      <div :style="{display: 'flex', justifyContent: 'center', margin: '40px'}">
+        <component :is="botonNavbar"></component>
       </div>
     </div>
   </div>
